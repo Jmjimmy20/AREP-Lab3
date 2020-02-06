@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 
 public class Servidor {
+
+    
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = null;
         try {
@@ -19,18 +21,33 @@ public class Servidor {
             System.err.println("Accept failed.");
             System.exit(1);
         }
-        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-        clientSocket.getInputStream()));
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream());
+        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         String inputLine, outputLine;
 
         while ((inputLine = in.readLine()) != null) {
             System.out.println("Mensaje: " + inputLine);
-            outputLine = "Respuesta " + inputLine ;
-            out.println(outputLine);
-            if (outputLine.equals("Respuestas: Bye."))
+            if (in.ready())
                 break;
         }
+
+        outputLine =
+            "<!DOCTYPE html>" + 
+            "<html>" +
+            "<head>" +
+            "<meta charset=\"UTF-8\">" +
+            "<title> Title of the document</title>\n" +
+            "</head>" +
+            "<body>" +
+            "<h1>Mi propio mensaje</h1>" +
+            "</body>" + 
+            "</html>" + inputLine;
+
+        out.println("HTTP/1.1 200 OK");
+        out.println("Content-type: " + "text/html");
+        out.println("\r\n");
+        out.println(outputLine);
+        out.flush();
         out.close();
         in.close();
         clientSocket.close();

@@ -27,9 +27,10 @@ public class Cliente {
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
         String userInput;
 
+
         while ((userInput = stdIn.readLine()) != null) {
             out.println(userInput);
-            System.out.println("echo: " + in.readLine());
+            System.out.println("Respuesta: " + in.readLine());
         }
         out.close();
         in.close();
