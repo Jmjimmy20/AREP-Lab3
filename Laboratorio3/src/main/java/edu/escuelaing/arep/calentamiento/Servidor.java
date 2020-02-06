@@ -1,7 +1,8 @@
-package edu.escuelaing.arep;
+package edu.escuelaing.arep.calentamiento;
 
 import java.net.*;
 import java.io.*;
+import java.lang.Math;
 
 public class Servidor {
     public static void main(String[] args) throws IOException {
@@ -27,8 +28,9 @@ public class Servidor {
         String inputLine, outputLine;
 
         while ((inputLine = in.readLine()) != null) {
-            System.out.println("Mensaje:" + inputLine);
-            outputLine = "Respuesta" + inputLine;
+            System.out.println("Valor:" + inputLine);
+            double cua = Math.pow(Double.parseDouble(inputLine),2);
+            outputLine = "El resultado cuadrado de " + inputLine + "es: " + cua;
             out.println(outputLine);
             if (outputLine.equals("Respuestas: Bye."))
                 break;
